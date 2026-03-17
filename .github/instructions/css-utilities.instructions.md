@@ -5,11 +5,13 @@ description: CSS utility classes and styling practices for this Python/Jinja2 pr
 # CSS Styling Practices
 
 ## Overview
+
 This project uses custom CSS utility classes (similar to Tailwind) defined in `app/static/css/app.css`. These provide consistent, composable styling without external dependencies.
 
 ## Available Utilities
 
 ### Layout
+
 ```css
 .flex, .flex-col, .flex-1
 .grid, .grid-cols-5
@@ -17,6 +19,7 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Spacing
+
 ```css
 .p-1 through .p-6, .px-*, .py-*
 .mb-2 through .mb-8, .mx-auto
@@ -24,6 +27,7 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Sizing
+
 ```css
 .h-full, .w-full, .min-h-full
 .max-w-xs, .max-w-sm, .max-w-md
@@ -31,6 +35,7 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Colors
+
 ```css
 .bg-white, .bg-gray-50, .bg-gray-100
 .bg-accent (primary blue), .bg-marked (green for selected)
@@ -39,6 +44,7 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Typography
+
 ```css
 .text-xs through .text-5xl
 .font-semibold, .font-bold
@@ -47,6 +53,7 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Borders & Shadows
+
 ```css
 .border, .border-b
 .rounded, .rounded-lg, .rounded-xl
@@ -54,12 +61,14 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 ```
 
 ### Positioning
+
 ```css
 .fixed, .absolute, .relative
 .inset-0, .z-50
 ```
 
 ### Animation
+
 ```css
 .transition-all, .transition-colors
 .duration-150
@@ -74,10 +83,11 @@ This project uses custom CSS utility classes (similar to Tailwind) defined in `a
 4. **Keep specificity low**: Utility classes should be single-purpose
 
 ## Example Component Styling
+
 ```html
 <div class="flex flex-col items-center justify-center min-h-full bg-gray-50">
-    <button class="px-6 py-3 bg-accent text-white rounded-lg font-semibold">
-        Start Game
-    </button>
+  <button class="px-6 py-3 bg-accent text-white rounded-lg font-semibold">
+    Start Game
+  </button>
 </div>
 ```

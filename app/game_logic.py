@@ -67,3 +67,8 @@ def check_bingo(board: list[BingoSquareData]) -> BingoLine | None:
 def get_winning_square_ids(line: BingoLine | None) -> set[int]:
     """Get the square IDs that are part of a winning line."""
     return set(line.squares) if line else set()
+
+
+def check_hunt_complete(checked_items: set[int]) -> bool:
+    """Check if scavenger hunt is complete (all 24 items checked)."""
+    return len(checked_items) == 24

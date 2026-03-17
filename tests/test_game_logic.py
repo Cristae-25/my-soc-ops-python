@@ -2,6 +2,7 @@ from app.data import FREE_SPACE, QUESTIONS
 from app.game_logic import (
     CENTER_INDEX,
     check_bingo,
+    check_hunt_complete,
     generate_board,
     get_winning_square_ids,
     toggle_square,
@@ -132,3 +133,22 @@ class TestGetWinningSquareIds:
     def test_returns_square_ids(self):
         line = BingoLine(type="row", index=0, squares=[0, 1, 2, 3, 4])
         assert get_winning_square_ids(line) == {0, 1, 2, 3, 4}
+
+
+class TestCheckHuntComplete:
+    def test_empty_checked_items_not_complete(self):
+        assert check_hunt_complete(set()) is False
+
+    def test_partial_checked_items_not_complete(self):
+        checked = {0, 1, 2, 3, 4, 5}
+        assert check_hunt_complete(checked) is False
+
+    def test_all_24_items_checked_complete(self):
+        checked = set(range(24))
+        assert check_hunt_complete(checked) is True
+
+    def test_exactly_24_is_required(self):
+        # 23 items should not be complete
+        assert check_hunt_complete(set(range(23))) is False
+        # 25 items should also not be complete (though shouldn't happen)
+        assert check_hunt_complete(set(range(25))) is False

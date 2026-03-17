@@ -29,11 +29,13 @@ body {
 .grid { display: grid; }
 .grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
 
 .p-1 { padding: 0.25rem; }
 .p-3 { padding: 0.75rem; }
 .p-4 { padding: 1rem; }
 .p-6 { padding: 1.5rem; }
+.p-2 { padding: 0.5rem; }
 .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
 .px-4 { padding-left: 1rem; padding-right: 1rem; }
 .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
@@ -48,16 +50,25 @@ body {
 .mb-4 { margin-bottom: 1rem; }
 .mb-6 { margin-bottom: 1.5rem; }
 .mb-8 { margin-bottom: 2rem; }
+.mb-1 { margin-bottom: 0.25rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 
 .bg-white { background-color: #ffffff; }
 .bg-gray-50 { background-color: #f9fafb; }
 .bg-gray-100 { background-color: #f3f4f6; }
+.bg-blue-50 { background-color: #eff6ff; }
 .bg-amber-100 { background-color: #fef3c7; }
 .bg-amber-200 { background-color: #fde68a; }
 .bg-accent { background-color: #2563eb; }
 .bg-marked { background-color: #dcfce7; }
 .bg-black\/50 { background-color: rgba(0, 0, 0, 0.5); }
+
+/* Seahawks Custom Colors */
+.bg-seahawks-navy { background-color: #002244; }
+.bg-seahawks-blue { background-color: #0C2C56; }
+.bg-seahawks-green { background-color: #69BE28; }
+.bg-seahawks-light { background-color: #E8F0F5; }
+.bg-seahawks-accent { background-color: #A8D5BA; }
 
 .text-white { color: #ffffff; }
 .text-gray-500 { color: #6b7280; }
@@ -70,6 +81,11 @@ body {
 .text-amber-500 { color: #f59e0b; }
 .text-amber-800 { color: #92400e; }
 .text-amber-900 { color: #78350f; }
+
+/* Seahawks Custom Text Colors */
+.text-seahawks-navy { color: #002244; }
+.text-seahawks-blue { color: #0C2C56; }
+.text-seahawks-green { color: #69BE28; }
 
 .text-xs { font-size: 0.75rem; line-height: 1rem; }
 .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
@@ -91,6 +107,11 @@ body {
 .border-amber-400 { border-color: #fbbf24; }
 .border-marked-border { border-color: #22c55e; }
 
+/* Seahawks Custom Border Colors */
+.border-seahawks-navy { border-color: #002244; }
+.border-seahawks-blue { border-color: #0C2C56; }
+.border-seahawks-green { border-color: #69BE28; }
+
 .rounded { border-radius: 0.25rem; }
 .rounded-lg { border-radius: 0.5rem; }
 .rounded-xl { border-radius: 0.75rem; }
@@ -100,12 +121,24 @@ body {
 
 .space-y-2 > * + * { margin-top: 0.5rem; }
 
+.hidden { display: none; }
+.flex-col { flex-direction: column; }
+.group { position: relative; }
+.group-hover\:opacity-100:hover { opacity: 1; }
+.group-hover\:bg-black\/20:hover { background-color: rgba(0, 0, 0, 0.2); }
+.group-hover\:flex:hover { display: flex; }
+.group-hover\:hidden:hover { display: none; }
+.opacity-0 { opacity: 0; }
+
 .fixed { position: fixed; }
 .absolute { position: absolute; }
 .relative { position: relative; }
 .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
 .top-0\.5 { top: 0.125rem; }
+.top-1 { top: 0.25rem; }
 .right-0\.5 { right: 0.125rem; }
+.right-1 { right: 0.25rem; }
+.overflow-hidden { overflow: hidden; }
 
 .z-50 { z-index: 50; }
 
@@ -129,6 +162,21 @@ button {
 
 button:disabled {
     cursor: default;
+    opacity: 0.6;
+}
+
+/* Seahawks Button Styles */
+button:hover:not(:disabled) {
+    filter: brightness(0.95);
+}
+
+/* Input Styles */
+input[type="text"] {
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    outline: none;
 }
 
 .wrap-break-word {

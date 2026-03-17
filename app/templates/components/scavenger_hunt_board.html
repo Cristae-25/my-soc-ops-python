@@ -1,0 +1,61 @@
+<div class="w-full max-w-lg">
+  <!-- Progress Section -->
+  <div
+    class="bg-white rounded-lg p-4 shadow-sm border-2 border-seahawks-navy mb-4"
+  >
+    <!-- Progress bar -->
+    <div class="mb-3">
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold text-seahawks-navy">Progress</span>
+        <span class="text-seahawks-blue font-bold"
+          >{{ session.checked_items|length }}/24</span
+        >
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div
+          class="bg-seahawks-green h-full transition-all duration-300 ease-out"
+          style="width: {{ session.hunt_progress }}%;"
+        ></div>
+      </div>
+    </div>
+    <p class="text-center text-sm text-gray-600">
+      {% if session.hunt_progress == 100 %} You found them all! 🎉 {% else %} {{
+      (24 - session.checked_items|length) }} more to find! {% endif %}
+    </p>
+  </div>
+
+  <!-- Items List -->
+  <div
+    class="bg-white rounded-lg shadow-sm border-2 border-seahawks-navy overflow-hidden"
+  >
+    <div class="max-h-96 overflow-y-auto">
+      {% for item in session.board %}
+      <div
+        class="border-b border-gray-200 last:border-b-0 hover:bg-seahawks-light transition-colors"
+      >
+        <label class="flex items-start p-4 cursor-pointer gap-3">
+          <input
+            type="checkbox"
+            value="{{ item.id }}"
+            {%
+            if
+            item.id
+            in
+            session.checked_items
+            %}checked{%
+            endif
+            %}
+            hx-post="/toggle/{{ item.id }}"
+            hx-target="#game-container"
+            hx-swap="outerHTML"
+            class="w-5 h-5 mt-0.5 accent-seahawks-green cursor-pointer"
+          />
+          <span class="text-gray-700 flex-1 text-sm leading-relaxed">
+            {{ item.text }}
+          </span>
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
