@@ -4,6 +4,7 @@ from app.game_logic import (
     check_bingo,
     check_hunt_complete,
     generate_board,
+    generate_card_deck,
     get_winning_square_ids,
     toggle_square,
 )
@@ -20,6 +21,9 @@ class GameSession:
     show_bingo_modal: bool = False
     mode: GameMode = GameMode.BINGO
     checked_items: set[int] = field(default_factory=set)
+    card_deck: list[BingoSquareData] = field(default_factory=list)
+    current_card_index: int = 0
+    viewed_cards: set[int] = field(default_factory=set)
 
     @property
     def winning_square_ids(self) -> set[int]:
@@ -34,9 +38,29 @@ class GameSession:
         """Return hunt progress as a percentage (0-100)."""
         return (len(self.checked_items) / 24) * 100
 
+    @property
+    def card_progress(self) -> float:
+        """Return card shuffle progress as a percentage (0-100)."""
+        return (len(self.viewed_cards) / 24) * 100
+
+    @property
+    def current_card(self) -> BingoSquareData | None:
+        """Return the current card being displayed."""
+        if self.card_deck and 0 <= self.current_card_index < len(self.card_deck):
+            return self.card_deck[self.current_card_index]
+        return None
+
     def start_game(self, mode: GameMode = GameMode.BINGO) -> None:
         self.mode = mode
-        self.board = generate_board()
+        match mode:
+            case GameMode.BINGO:
+                self.board = generate_board()
+            case GameMode.CARD_SHUFFLE:
+                self.card_deck = generate_card_deck()
+                self.current_card_index = 0
+                self.viewed_cards = set()
+            case GameMode.SCAVENGER_HUNT:
+                self.board = generate_board()
         self.winning_line = None
         self.game_state = GameState.PLAYING
         self.show_bingo_modal = False
@@ -50,6 +74,8 @@ class GameSession:
             self._handle_bingo_click(square_id)
         elif self.mode == GameMode.SCAVENGER_HUNT:
             self._handle_hunt_click(square_id)
+        elif self.mode == GameMode.CARD_SHUFFLE:
+            self._handle_card_click()
 
     def _handle_bingo_click(self, square_id: int) -> None:
         """Handle a square click in BINGO mode."""
@@ -75,6 +101,23 @@ class GameSession:
             self.game_state = GameState.BINGO
             self.show_bingo_modal = True
 
+    def _handle_card_click(self) -> None:
+        """Handle a card reveal in Card Shuffle mode."""
+        if self.current_card and self.current_card.id not in self.viewed_cards:
+            self.viewed_cards.add(self.current_card.id)
+
+        # Move to next card
+        if len(self.viewed_cards) < 24 and self.card_deck:
+            unviewed = [c for c in self.card_deck if c.id not in self.viewed_cards]
+            if unviewed:
+                self.current_card_index = self.card_deck.index(unviewed[0])
+            else:
+                self.game_state = GameState.BINGO
+                self.show_bingo_modal = True
+        elif len(self.viewed_cards) == 24:
+            self.game_state = GameState.BINGO
+            self.show_bingo_modal = True
+
     def reset_game(self) -> None:
         self.game_state = GameState.START
         self.board = []
@@ -82,6 +125,9 @@ class GameSession:
         self.show_bingo_modal = False
         self.mode = GameMode.BINGO
         self.checked_items = set()
+        self.card_deck = []
+        self.current_card_index = 0
+        self.viewed_cards = set()
 
     def dismiss_modal(self) -> None:
         self.show_bingo_modal = False

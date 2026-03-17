@@ -1,0 +1,51 @@
+<div id="card-container" class="flex flex-col items-center justify-center flex-1 p-4 min-h-full">
+  <div class="w-full max-w-md">
+    <!-- Card Progress -->
+    <div class="text-center mb-6">
+      <p class="text-sm text-gray-600 font-medium">
+        Card <span class="text-seahawks-navy font-bold">{{ session.viewed_cards|length + 1 }}</span> of 24
+      </p>
+    </div>
+
+    <!-- Card -->
+    <div
+      id="card-element"
+      class="bg-white rounded-xl p-8 shadow-lg border-2 border-seahawks-blue min-h-64 flex flex-col items-center justify-center card-reveal-animation"
+    >
+      {% if session.current_card %}
+      <p class="text-center text-xl font-medium text-seahawks-navy leading-relaxed">
+        {{ session.current_card.text }}
+      </p>
+      {% else %}
+      <p class="text-center text-gray-500">No card available</p>
+      {% endif %}
+    </div>
+
+    <!-- Tap Button -->
+    <div class="mt-8 text-center">
+      <button
+        hx-post="/toggle/0"
+        hx-target="#game-container"
+        hx-swap="outerHTML"
+        class="w-full bg-seahawks-green text-white font-semibold py-4 px-6 rounded-lg text-lg hover:opacity-90 transition-opacity active:scale-95"
+      >
+        {% if session.viewed_cards|length < 24 %}
+        Tap for Next Card
+        {% else %}
+        View Results
+        {% endif %}
+      </button>
+
+      <!-- Progress Bar -->
+      <div class="mt-6 w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <div
+          class="bg-seahawks-green h-full transition-all duration-300"
+          style="width: {{ session.card_progress }}%"
+        ></div>
+      </div>
+      <p class="text-xs text-gray-500 mt-2">
+        {{ session.viewed_cards|length }} of 24 cards revealed
+      </p>
+    </div>
+  </div>
+</div>

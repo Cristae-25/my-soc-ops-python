@@ -72,3 +72,9 @@ def get_winning_square_ids(line: BingoLine | None) -> set[int]:
 def check_hunt_complete(checked_items: set[int]) -> bool:
     """Check if scavenger hunt is complete (all 24 items checked)."""
     return len(checked_items) == 24
+
+
+def generate_card_deck() -> list[BingoSquareData]:
+    """Generate a shuffled deck of 24 cards (one question per card)."""
+    questions = random.sample(QUESTIONS, len(QUESTIONS))
+    return [BingoSquareData(id=i, text=q) for i, q in enumerate(questions)]

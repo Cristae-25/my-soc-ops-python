@@ -19,6 +19,9 @@
           <li>
             <strong>📝 Scavenger Hunt:</strong> Check off all 24 items to win!
           </li>
+          <li>
+            <strong>🃏 Card Shuffle:</strong> Tap through all 24 cards to win!
+          </li>
         </ul>
       </div>
 
@@ -38,6 +41,14 @@
           class="w-full bg-seahawks-blue text-white font-semibold py-4 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity"
         >
           📝 Scavenger Hunt
+        </button>
+        <button
+          hx-post="/start?mode=card_shuffle"
+          hx-target="#game-container"
+          hx-swap="outerHTML"
+          class="w-full bg-seahawks-navy text-white font-semibold py-4 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity"
+        >
+          🃏 Card Shuffle
         </button>
       </div>
     </div>
